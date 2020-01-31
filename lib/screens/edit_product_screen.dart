@@ -218,9 +218,9 @@ class _EditProductScreenState extends State<EditProductScreen> {
                         if (value.isEmpty) {
                           return i('Please enter a description.');
                         }
-                        if (value.length > 1) {
-                          return i('Should be at least 10 characters long.');
-                        }
+//                        if (value.length > 1) {
+//                          return i('Should be at least 10 characters long.');
+//                        }
                         return null;
                       },
                       onSaved: (value) {
