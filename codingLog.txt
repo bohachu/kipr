@@ -1,0 +1,5 @@
+==20200131 21:57==
+. 修改了 configKipr.dart
+const String strFirebaseUrl='https://flutter-update-53be7.firebaseio.com/';
+const String strFirebaseApiKey='AIzaSyBPDAUkwtg8MxVbFeo5YVQ_U1E7vZnS6WE';
+. 納入 i18nKipr.dart 可以用在中文化
