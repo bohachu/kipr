@@ -6,8 +6,16 @@ import '../screens/user_products_screen.dart';
 import '../providers/auth.dart';
 import '../helpers/custom_route.dart';
 import '../cameo/i18nKipr.dart';
+import '../cameo/uri.dart';
 
 class AppDrawer extends StatelessWidget {
+  bool isBackend() {
+    //print('app_drawer.dart/isBackend:${getCurrentUri()}');
+    //app_drawer.dart/isBackend:http://localhost:49247/shop1.html#/user-products
+    if(getCurrentUri().contains('_backend')) return true;
+    return false;
+  }
+
   @override
   Widget build(BuildContext context) {
     return Drawer(
@@ -39,15 +47,17 @@ class AppDrawer extends StatelessWidget {
               // );
             },
           ),
-          Divider(),
-          ListTile(
-            leading: Icon(Icons.edit),
-            title: Text(i('Manage Products')),
-            onTap: () {
-              Navigator.of(context)
-                  .pushReplacementNamed(UserProductsScreen.routeName);
-            },
-          ),
+          isBackend() ? Divider() : Row(),
+          isBackend()
+              ? ListTile(
+                  leading: Icon(Icons.edit),
+                  title: Text(i('Manage Products')),
+                  onTap: () {
+                    Navigator.of(context)
+                        .pushReplacementNamed(UserProductsScreen.routeName);
+                  },
+                )
+              : Row(),
           Divider(),
           ListTile(
             leading: Icon(Icons.exit_to_app),

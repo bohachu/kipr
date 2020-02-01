@@ -1,3 +1,33 @@
+==20200201 18:54==
+. 已經可以針對URI判斷是否顯示後臺商品上架功能
+
+~~ app_drawer.dart 判斷是不是後台有 _backend 字樣的 URL
+  bool isBackend() {
+    //print('app_drawer.dart/isBackend:${getCurrentUri()}');
+    //app_drawer.dart/isBackend:http://localhost:49247/shop1.html#/user-products
+    if(getCurrentUri().contains('_backend')) return true;
+    return false;
+  }
+
+~~ app_drawer.dart 可以動態隱藏後臺上架商品的選單，用Row()空空的取代原本的選單項目位置
+          isBackend() ? Divider() : Row(),
+          isBackend()
+              ? ListTile(
+                  leading: Icon(Icons.edit),
+                  title: Text(i('Manage Products')),
+                  onTap: () {
+                    Navigator.of(context)
+                        .pushReplacementNamed(UserProductsScreen.routeName);
+                  },
+                )
+              : Row(),
+
+~~ uri.dart 從JavaScript抓取目前網址列字串
+import 'dart:js' as js;
+String getCurrentUri(){
+  return js.context['location']['href'];
+}
+
 ==20200131 21:57==
 . 修改了 configKipr.dart
 const String strFirebaseUrl='https://flutter-update-53be7.firebaseio.com/';
