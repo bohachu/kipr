@@ -9,8 +9,7 @@ Map mapTw = {
   'Title': '商品名稱',
   'Please provide a value.': '請輸入商品名稱',
   //目前因前台顯示不出來，所以尚未新增，在 input_app 版本有程式碼可參考
-  //'Creator':'創作者',
-  //'Please provide a value.':'請輸入創作者',
+  'Creator':'創作者',
   'Price': '價格',
   'Please enter a price.': '請輸入價格',
   'Please enter a valid number.': '請輸入阿拉伯數字',
@@ -58,8 +57,7 @@ Map mapZhuyin = {
   'Title': 'ㄕㄤ ㄆㄧㄣˇ ㄇㄧㄥˊ ㄔㄥ',
   'Please provide a value.': 'ㄑㄧㄥˇ ㄕㄨ ㄖㄨˋ ㄕㄤ ㄆㄧㄣˇ ㄇㄧㄥˊ ㄔㄥ',
   //目前因前台顯示不出來，所以尚未新增，在 input_app 版本有程式碼可參考
-  //'Creator':'ㄔㄨㄤˋ ㄗㄨㄛˋ ㄓㄜˇ',
-  //'Please provide a value.':'ㄑㄧㄥˇ ㄕㄨ ㄖㄨˋ ㄔㄨㄤˋ ㄗㄨㄛˋ ㄓㄜˇ',
+  'Creator':'ㄔㄨㄤˋ ㄗㄨㄛˋ ㄓㄜˇ',
   'Price': 'ㄐㄧㄚˋ ㄍㄜˊ',
   'Please enter a price.': 'ㄑㄧㄥˇ ㄕㄨ ㄖㄨˋ ㄐㄧㄚˋ ㄍㄜˊ',
   'Please enter a valid number.': 'ㄑㄧㄥˇ ㄕㄨ ㄖㄨˋ ㄚ ㄌㄚ ㄅㄛˊ ㄕㄨˋ ㄗˋ',

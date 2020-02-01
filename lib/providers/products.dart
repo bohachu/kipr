@@ -95,6 +95,7 @@ class Products with ChangeNotifier {
           title: prodData['title'],
           description: prodData['description'],
           price: prodData['price'],
+          creator: prodData['creator'],
           isFavorite:
               favoriteData == null ? false : favoriteData[prodId] ?? false,
           imageUrl: prodData['imageUrl'],
@@ -118,6 +119,7 @@ class Products with ChangeNotifier {
           'description': product.description,
           'imageUrl': product.imageUrl,
           'price': product.price,
+          'creator': product.creator,
           'creatorId': userId,
         }),
       );
@@ -125,6 +127,7 @@ class Products with ChangeNotifier {
         title: product.title,
         description: product.description,
         price: product.price,
+        creator: product.creator,
         imageUrl: product.imageUrl,
         id: json.decode(response.body)['name'],
       );
@@ -147,7 +150,8 @@ class Products with ChangeNotifier {
             'title': newProduct.title,
             'description': newProduct.description,
             'imageUrl': newProduct.imageUrl,
-            'price': newProduct.price
+            'price': newProduct.price,
+            'creator': newProduct.creator
           }));
       _items[prodIndex] = newProduct;
       notifyListeners();

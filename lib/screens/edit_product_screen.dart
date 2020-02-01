@@ -22,6 +22,7 @@ class _EditProductScreenState extends State<EditProductScreen> {
     id: null,
     title: '',
     price: 0,
+    creator: '',
     description: '',
     imageUrl: '',
   );
@@ -29,6 +30,7 @@ class _EditProductScreenState extends State<EditProductScreen> {
     'title': '',
     'description': '',
     'price': '',
+    'creator': '',
     'imageUrl': '',
   };
   var _isInit = true;
@@ -51,6 +53,7 @@ class _EditProductScreenState extends State<EditProductScreen> {
           'title': _editedProduct.title,
           'description': _editedProduct.description,
           'price': _editedProduct.price.toString(),
+          'creator': _editedProduct.creator,
           // 'imageUrl': _editedProduct.imageUrl,
           'imageUrl': '',
         };
@@ -170,6 +173,26 @@ class _EditProductScreenState extends State<EditProductScreen> {
                         _editedProduct = Product(
                             title: value,
                             price: _editedProduct.price,
+                            creator: _editedProduct.creator,
+                            description: _editedProduct.description,
+                            imageUrl: _editedProduct.imageUrl,
+                            id: _editedProduct.id,
+                            isFavorite: _editedProduct.isFavorite);
+                      },
+                    ),
+                    TextFormField(
+                      initialValue: _initValues['creator'],
+                      decoration: InputDecoration(labelText: i('Creator')),
+                      textInputAction: TextInputAction.next,
+                      onFieldSubmitted: (_) {
+                        FocusScope.of(context).requestFocus(_priceFocusNode);
+                      },
+
+                      onSaved: (value) {
+                        _editedProduct = Product(
+                            title: _editedProduct.title,
+                            price: _editedProduct.price,
+                            creator: value,
                             description: _editedProduct.description,
                             imageUrl: _editedProduct.imageUrl,
                             id: _editedProduct.id,
@@ -202,6 +225,7 @@ class _EditProductScreenState extends State<EditProductScreen> {
                         _editedProduct = Product(
                             title: _editedProduct.title,
                             price: double.parse(value),
+                            creator: _editedProduct.creator,
                             description: _editedProduct.description,
                             imageUrl: _editedProduct.imageUrl,
                             id: _editedProduct.id,
@@ -227,6 +251,7 @@ class _EditProductScreenState extends State<EditProductScreen> {
                         _editedProduct = Product(
                           title: _editedProduct.title,
                           price: _editedProduct.price,
+                          creator: _editedProduct.creator,
                           description: value,
                           imageUrl: _editedProduct.imageUrl,
                           id: _editedProduct.id,
@@ -288,6 +313,7 @@ class _EditProductScreenState extends State<EditProductScreen> {
                               _editedProduct = Product(
                                 title: _editedProduct.title,
                                 price: _editedProduct.price,
+                                creator: _editedProduct.creator,
                                 description: _editedProduct.description,
                                 imageUrl: value,
                                 id: _editedProduct.id,
