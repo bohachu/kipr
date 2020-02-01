@@ -1,3 +1,37 @@
+== 20200201 22:25 ==
+strShopUri 大致像是這樣 "http://localhost:49247/shop2_backend.html#/edit-product"
+
+void main() {
+  String str = "http://localhost:49247/shop2_backend.html#/edit-product";
+  RegExp reg = new RegExp(r"shop([^\u0000]+)(_backend.html)");
+  Iterable<Match> matches = reg.allMatches(str);
+  for (Match m in matches) {
+    print('group0: ${m.group(0)}');
+    print('group1: ${m.group(1)}');
+    print('group2: ${m.group(2)}');
+  }
+}
+/*
+group0: shop2_backend.html
+group1: 2
+group2: _backend.html
+*/
+
+已經可以按照不同 shop2.html 等等的字樣把商品分到不同商店顯示了
+  bool isProductBelongsToThisShop(String strShopUri) {
+    if(strShopUri==null) return false;
+    RegExp reg = new RegExp(r"(shop[^\u0000]+)(_backend.html)");
+    Iterable<Match> matches = reg.allMatches(strShopUri);
+    for (Match m in matches) {
+      String strShop = m.group(1);
+      if (getCurrentUri().contains(strShop)) {
+        print('products.dart/strShop:$strShop');
+        return true;
+      }
+    }
+    return false;
+  }
+
 == 20200201 19:21 ==
 新增商品、更新商品、都已經可以寫入商家URI識別 strShopUri 是哪個商店新增的了。驗證過Firebase資料庫有東西。
 Firebase Database可以即時更新顯示不用刷新瀏覽器就能看到更新情況，爆強
