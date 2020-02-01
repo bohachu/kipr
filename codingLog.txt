@@ -1,3 +1,16 @@
+== 20200201 19:21 ==
+新增商品、更新商品、都已經可以寫入商家URI識別 strShopUri 是哪個商店新增的了。驗證過Firebase資料庫有東西。
+Firebase Database可以即時更新顯示不用刷新瀏覽器就能看到更新情況，爆強
+        body: json.encode({
+          'title': product.title,
+          'description': product.description,
+          'imageUrl': product.imageUrl,
+          'price': product.price,
+          'creator': product.creator,
+          'creatorId': userId,
+          'strShopUri': getCurrentUri()
+        }),
+
 ==20200201 18:54==
 . 已經可以針對URI判斷是否顯示後臺商品上架功能
 

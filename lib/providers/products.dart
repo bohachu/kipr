@@ -1,12 +1,13 @@
 import 'dart:convert';
 
 import 'package:flutter/material.dart';
+import 'package:flutter_complete_guide/cameo/uri.dart';
 import 'package:http/http.dart' as http;
 
 import '../models/http_exception.dart';
 import './product.dart';
 import '../cameo/configKipr.dart';
-
+import '../cameo/uri.dart';
 
 class Products with ChangeNotifier {
   List<Product> _items = [
@@ -99,6 +100,7 @@ class Products with ChangeNotifier {
           isFavorite:
               favoriteData == null ? false : favoriteData[prodId] ?? false,
           imageUrl: prodData['imageUrl'],
+          strShopUri: prodData['strShopUri']
         ));
       });
       _items = loadedProducts;
@@ -121,6 +123,7 @@ class Products with ChangeNotifier {
           'price': product.price,
           'creator': product.creator,
           'creatorId': userId,
+          'strShopUri': getCurrentUri()
         }),
       );
       final newProduct = Product(
@@ -151,7 +154,8 @@ class Products with ChangeNotifier {
             'description': newProduct.description,
             'imageUrl': newProduct.imageUrl,
             'price': newProduct.price,
-            'creator': newProduct.creator
+            'creator': newProduct.creator,
+            'strShopUri': getCurrentUri()
           }));
       _items[prodIndex] = newProduct;
       notifyListeners();

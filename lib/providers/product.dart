@@ -12,6 +12,7 @@ class Product with ChangeNotifier {
   final double price;
   final String creator;
   final String imageUrl;
+  String strShopUri;
   bool isFavorite;
 
   Product({
@@ -22,6 +23,7 @@ class Product with ChangeNotifier {
     @required this.creator,
     @required this.imageUrl,
     this.isFavorite = false,
+    this.strShopUri
   });
 
   void _setFavValue(bool newValue) {
