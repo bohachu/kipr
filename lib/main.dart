@@ -14,12 +14,17 @@ import './screens/user_products_screen.dart';
 import './screens/edit_product_screen.dart';
 import './screens/auth_screen.dart';
 import './helpers/custom_route.dart';
+import './widgets/web_upload.dart';
 
 void main() => runApp(MyApp());
 
 class MyApp extends StatelessWidget {
-  static List lstStartScreen=['getScreenShop','getScreenUpload'];
-  static String strStartScreen=lstStartScreen[0];
+  static String strScreenStart=lstScreenStart[1];
+  static List lstScreenStart=['getScreenShop','getScreenUpload'];
+  Widget getScreenMain(Auth auth) {
+    if(strScreenStart==lstScreenStart[0]) return getScreenShop(auth);
+    if(strScreenStart==lstScreenStart[1]) return getScreenUpload(auth);
+  }
   Widget getScreenShop(Auth auth){
     return auth.isAuth
         ? ProductsOverviewScreen()
@@ -30,11 +35,7 @@ class MyApp extends StatelessWidget {
     );
   }
   Widget getScreenUpload(Auth auth){
-    return ProductsOverviewScreen();
-  }
-  Widget getHomeScreen(Auth auth) {
-    if(strStartScreen==lstStartScreen[0]) return getScreenShop(auth);
-    if(strStartScreen==lstStartScreen[1]) return getScreenUpload(auth);
+    return FileUploadApp();
   }
 
   @override
@@ -76,7 +77,7 @@ class MyApp extends StatelessWidget {
               },
             ),
           ),
-          home: getHomeScreen(auth),
+          home: getScreenMain(auth),
           routes: {
             ProductDetailScreen.routeName: (ctx) => ProductDetailScreen(),
             CartScreen.routeName: (ctx) => CartScreen(),
@@ -87,10 +88,5 @@ class MyApp extends StatelessWidget {
         ),
       ),
     );
-  }
-  @override
-  void debugFillProperties(DiagnosticPropertiesBuilder properties) {
-    super.debugFillProperties(properties);
-    properties.add(DiagnosticsProperty<Function>('getScreenShop', getScreenShop));
   }
 }

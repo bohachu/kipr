@@ -5,7 +5,6 @@ import 'dart:async';
 import 'dart:convert';
 import 'package:http_parser/http_parser.dart';
 import 'package:http/http.dart' as http;
-import 'upload_widget.dart';
 
 class FileUploadApp extends StatefulWidget {
   @override
@@ -67,18 +66,6 @@ class _FileUploadAppState extends State<FileUploadApp> {
               ],
             ),
           ),
-          actions: <Widget>[
-            new FlatButton(
-              child: new Text('Aceptar'),
-              onPressed: () {
-                Navigator.pushAndRemoveUntil(
-                  context,
-                  MaterialPageRoute(builder: (context) => UploadWidget()),
-                  (Route<dynamic> route) => false,
-                );
-              },
-            ),
-          ],
         ));
   }
 
