@@ -22,43 +22,55 @@ class SellerInfoScreen extends StatelessWidget {
     return Scaffold(
       appBar: AppBar(
         title: Text(i('sellerInfo')),
-        actions: <Widget>[
-          IconButton(
-            icon: const Icon(Icons.add),
-            onPressed: () {
-              Navigator.of(context).pushNamed(EditProductScreen.routeName);
-            },
-          ),
-        ],
       ),
       drawer: AppDrawer(),
-      body: FutureBuilder(
-        future: _refreshProducts(context),
-        builder: (ctx, snapshot) =>
-        snapshot.connectionState == ConnectionState.waiting
-            ? Center(
-          child: CircularProgressIndicator(),
-        )
-            : RefreshIndicator(
-          onRefresh: () => _refreshProducts(context),
-          child: Consumer<Products>(
-            builder: (ctx, productsData, _) => Padding(
-              padding: EdgeInsets.all(8),
-              child: ListView.builder(
-                itemCount: productsData.items.length,
-                itemBuilder: (_, i) => Column(
-                  children: [
-                    UserProductItem(
-                      productsData.items[i].id,
-                      productsData.items[i].title,
-                      productsData.items[i].imageUrl,
-                    ),
-                    Divider(),
-                  ],
+      body: SafeArea(
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.stretch,
+          children: <Widget>[
+            SizedBox(
+              height: 100.0,
+            ),
+            Container(
+              height: 50.0,
+              color: Colors.purple[100],
+              padding: EdgeInsets.all(10.0),
+              margin: EdgeInsets.symmetric(horizontal: 70.0),
+              child: Text(
+                '銀行代碼：808 玉山銀行 （民權分行）',
+                style: TextStyle(
+                  fontSize: 20,
+                  color: Colors.black
+                 ),
+                ),
+            ),
+            Container(
+              height: 50.0,
+              color: Colors.purple[100],
+              padding: EdgeInsets.all(10.0),
+              margin: EdgeInsets.symmetric(horizontal: 70.0),
+              child: Text(
+                '銀行帳號：0598940162373',
+                style: TextStyle(
+                    fontSize: 20,
+                    color: Colors.black
                 ),
               ),
             ),
-          ),
+            Container(
+              height: 50.0,
+              color: Colors.purple[100],
+              padding: EdgeInsets.all(10.0),
+              margin: EdgeInsets.symmetric(horizontal: 70.0),
+              child: Text(
+                '帳戶名稱：超夢國際教育有限公司',
+                style: TextStyle(
+                    fontSize: 20,
+                    color: Colors.black
+                ),
+              ),
+            ),
+          ],
         ),
       ),
     );
