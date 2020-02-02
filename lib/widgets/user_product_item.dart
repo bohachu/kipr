@@ -9,14 +9,15 @@ class UserProductItem extends StatelessWidget {
   final String id;
   final String title;
   final String imageUrl;
+  final String creator;
 
-  UserProductItem(this.id, this.title, this.imageUrl);
+  UserProductItem(this.id, this.title, this.imageUrl, this.creator);
 
   @override
   Widget build(BuildContext context) {
     final scaffold = Scaffold.of(context);
     return ListTile(
-      title: Text(title),
+      title: Text('$title (作者:$creator)'),
       leading: CircleAvatar(
         backgroundImage: NetworkImage(imageUrl),
       ),

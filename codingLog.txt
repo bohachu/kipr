@@ -1,3 +1,32 @@
+== 20200202 22:10 已經可以顯示作者
+          title: Text(
+            '${product.title} (作者:${product.creator})',
+
+== 20200202 21:47 後台帳號已經新增
+
+哩哩
+cslj23911@gmail.com
+
+小胖
+ciwei510077@hotmail.com
+
+之雅
+frances@tridkingdom.com
+
+4N
+littlebala4n@gmail.com
+
+Eason
+lyc19920220@gmail.com
+
+公用
+service@tridkingdom.com
+
+
+== 20200202 21:23
+奇德王國的表單如下：
+https://forms.gle/iQViWdM3Cd4evXBF7
+
 購買者姓名：
 聯繫Email：
 聯繫電話：

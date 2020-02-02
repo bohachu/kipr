@@ -55,7 +55,7 @@ class ProductItem extends StatelessWidget {
                 ),
           ),
           title: Text(
-            product.title,
+            '${product.title} (作者:${product.creator})',
             textAlign: TextAlign.center,
             style: TextStyle(
               color: Colors.black,

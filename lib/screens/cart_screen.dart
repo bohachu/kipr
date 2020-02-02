@@ -5,6 +5,7 @@ import '../providers/cart.dart' show Cart;
 import '../widgets/cart_item.dart';
 import '../providers/orders.dart';
 import '../cameo/i18nKipr.dart';
+import 'package:url_launcher/url_launcher.dart';
 
 class CartScreen extends StatelessWidget {
   static const routeName = '/cart';
@@ -49,12 +50,12 @@ class CartScreen extends StatelessWidget {
             child: ListView.builder(
               itemCount: cart.items.length,
               itemBuilder: (ctx, i) => CartItem(
-                    cart.items.values.toList()[i].id,
-                    cart.items.keys.toList()[i],
-                    cart.items.values.toList()[i].price,
-                    cart.items.values.toList()[i].quantity,
-                    cart.items.values.toList()[i].title,
-                  ),
+                cart.items.values.toList()[i].id,
+                cart.items.keys.toList()[i],
+                cart.items.values.toList()[i].price,
+                cart.items.values.toList()[i].quantity,
+                cart.items.values.toList()[i].title,
+              ),
             ),
           )
         ],
@@ -96,8 +97,18 @@ class _OrderButtonState extends State<OrderButton> {
                 _isLoading = false;
               });
               widget.cart.clear();
+              redirectBuyerUrl();
             },
       textColor: Theme.of(context).primaryColor,
     );
+  }
+
+  void redirectBuyerUrl() async {
+    const url = 'https://forms.gle/iQViWdM3Cd4evXBF7'; //奇德王國購買人資訊表單
+    if (await canLaunch(url)) {
+      await launch(url);
+    } else {
+      throw 'Could not launch $url';
+    }
   }
 }
