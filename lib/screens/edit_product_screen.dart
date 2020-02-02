@@ -338,12 +338,12 @@ class _EditProductScreenState extends State<EditProductScreen> {
                               if (value.isEmpty) {
                                 return i('Please enter an image URL.');
                               }
-                              if (!value.startsWith('http') && !value.startsWith('https')) {
-                                return i('Please enter a valid URL.');
-                              }
-                              if (!value.endsWith('.png') && !value.endsWith('.jpg') && !value.endsWith('.jpeg')) {
-                                return i('Please enter a valid image URL.');
-                              }
+//                              if (!value.startsWith('http') && !value.startsWith('https')) {
+//                                return i('Please enter a valid URL.');
+//                              }
+//                              if (!value.endsWith('.png') && !value.endsWith('.jpg') && !value.endsWith('.jpeg')) {
+//                                return i('Please enter a valid image URL.');
+//                              }
                               return null;
                             },
                             onSaved: (value) {
