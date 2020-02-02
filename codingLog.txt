@@ -1,5 +1,20 @@
+== 20200202 14:13 ==
+
+
 == 20200202 12:49 ==
 需要一個乾淨的測試環境，撰寫獨立小APP可以獨立測試，獨立執行，先從 upload widget 開始實驗
+
+已經可以支援 ... 語法不會有錯誤訊息了
+And adding ( analysis_options.yaml )
+
+analyzer:
+  enable-experiment:
+    - spread-collections
+
+ in your pubspec.yaml
+
+environment:
+  sdk: ">=2.6.0 <3.0.0"
 
 == 20200201 22:25 ==
 strShopUri 大致像是這樣 "http://localhost:49247/shop2_backend.html#/edit-product"

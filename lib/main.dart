@@ -19,7 +19,7 @@ import './widgets/web_upload.dart';
 void main() => runApp(MyApp());
 
 class MyApp extends StatelessWidget {
-  static String strScreenStart=lstScreenStart[1];
+  static String strScreenStart=lstScreenStart[0];
   static List lstScreenStart=['getScreenShop','getScreenUpload'];
   Widget getScreenMain(Auth auth) {
     if(strScreenStart==lstScreenStart[0]) return getScreenShop(auth);
