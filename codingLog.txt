@@ -1,3 +1,11 @@
+購買者姓名：
+聯繫Email：
+聯繫電話：
+購買者地址：
+郵遞區號：
+購買者ATM轉帳帳號後五碼（轉帳後核對用）：
+備註：
+
 == 20200202 20:57 ==
 buyer.dart + input_buyer_screen.bak 尚未成功，另外，
 vue html upload image file 也尚未成功整合（已經實驗可運作，但是沒有辦法有足夠時間串接）
