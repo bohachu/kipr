@@ -1,4 +1,7 @@
-==
+== 20200202 20:57 ==
+buyer.dart + input_buyer_screen.bak 尚未成功，另外，
+vue html upload image file 也尚未成功整合（已經實驗可運作，但是沒有辦法有足夠時間串接）
+
 == 20200202 18:41 ==
 實驗已經可以 flutter vue 互相轉換，透過 localStorage 共享資訊就可以讓表單不會消失
 18:48 . 刪除掉: 編輯商品的按鈕
