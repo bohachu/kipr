@@ -1,3 +1,6 @@
+== 20200202 12:49 ==
+需要一個乾淨的測試環境，撰寫獨立小APP可以獨立測試，獨立執行，先從 upload widget 開始實驗
+
 == 20200201 22:25 ==
 strShopUri 大致像是這樣 "http://localhost:49247/shop2_backend.html#/edit-product"
 

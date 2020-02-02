@@ -14,12 +14,30 @@ import './screens/user_products_screen.dart';
 import './screens/edit_product_screen.dart';
 import './screens/auth_screen.dart';
 import './helpers/custom_route.dart';
-
-import './screens/sellerInfo_screen.dart';
+import './widgets/web_upload.dart';
 
 void main() => runApp(MyApp());
 
 class MyApp extends StatelessWidget {
+  static String strScreenStart=lstScreenStart[1];
+  static List lstScreenStart=['getScreenShop','getScreenUpload'];
+  Widget getScreenMain(Auth auth) {
+    if(strScreenStart==lstScreenStart[0]) return getScreenShop(auth);
+    if(strScreenStart==lstScreenStart[1]) return getScreenUpload(auth);
+  }
+  Widget getScreenShop(Auth auth){
+    return auth.isAuth
+        ? ProductsOverviewScreen()
+        : FutureBuilder(
+      future: auth.tryAutoLogin(),
+      builder: (ctx, authResultSnapshot) =>
+      authResultSnapshot.connectionState == ConnectionState.waiting ? SplashScreen() : AuthScreen(),
+    );
+  }
+  Widget getScreenUpload(Auth auth){
+    return FileUploadApp();
+  }
+
   @override
   Widget build(BuildContext context) {
     return MultiProvider(
@@ -29,55 +47,45 @@ class MyApp extends StatelessWidget {
         ),
         ChangeNotifierProxyProvider<Auth, Products>(
           builder: (ctx, auth, previousProducts) => Products(
-                auth.token,
-                auth.userId,
-                previousProducts == null ? [] : previousProducts.items,
-              ),
+            auth.token,
+            auth.userId,
+            previousProducts == null ? [] : previousProducts.items,
+          ),
         ),
         ChangeNotifierProvider.value(
           value: Cart(),
         ),
         ChangeNotifierProxyProvider<Auth, Orders>(
           builder: (ctx, auth, previousOrders) => Orders(
-                auth.token,
-                auth.userId,
-                previousOrders == null ? [] : previousOrders.orders,
-              ),
+            auth.token,
+            auth.userId,
+            previousOrders == null ? [] : previousOrders.orders,
+          ),
         ),
       ],
       child: Consumer<Auth>(
         builder: (ctx, auth, _) => MaterialApp(
-              title: 'MyShop',
-              theme: ThemeData(
-                primarySwatch: Colors.purple,
-                accentColor: Colors.deepOrange,
-                fontFamily: 'Lato',
-                pageTransitionsTheme: PageTransitionsTheme(
-                  builders: {
-                    TargetPlatform.android: CustomPageTransitionBuilder(),
-                    TargetPlatform.iOS: CustomPageTransitionBuilder(),
-                  },
-                ),
-              ),
-              home: auth.isAuth
-                  ? ProductsOverviewScreen()
-                  : FutureBuilder(
-                      future: auth.tryAutoLogin(),
-                      builder: (ctx, authResultSnapshot) =>
-                          authResultSnapshot.connectionState ==
-                                  ConnectionState.waiting
-                              ? SplashScreen()
-                              : AuthScreen(),
-                    ),
-              routes: {
-                ProductDetailScreen.routeName: (ctx) => ProductDetailScreen(),
-                CartScreen.routeName: (ctx) => CartScreen(),
-                OrdersScreen.routeName: (ctx) => OrdersScreen(),
-                UserProductsScreen.routeName: (ctx) => UserProductsScreen(),
-                EditProductScreen.routeName: (ctx) => EditProductScreen(),
-                SellerInfoScreen.routeName: (ctx) => SellerInfoScreen(),
+          title: 'MyShop',
+          theme: ThemeData(
+            primarySwatch: Colors.purple,
+            accentColor: Colors.deepOrange,
+            fontFamily: 'Lato',
+            pageTransitionsTheme: PageTransitionsTheme(
+              builders: {
+                TargetPlatform.android: CustomPageTransitionBuilder(),
+                TargetPlatform.iOS: CustomPageTransitionBuilder(),
               },
             ),
+          ),
+          home: getScreenMain(auth),
+          routes: {
+            ProductDetailScreen.routeName: (ctx) => ProductDetailScreen(),
+            CartScreen.routeName: (ctx) => CartScreen(),
+            OrdersScreen.routeName: (ctx) => OrdersScreen(),
+            UserProductsScreen.routeName: (ctx) => UserProductsScreen(),
+            EditProductScreen.routeName: (ctx) => EditProductScreen(),
+          },
+        ),
       ),
     );
   }

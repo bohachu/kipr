@@ -1,9 +1,14 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
-
 import '../providers/product.dart';
 import '../providers/products.dart';
 import '../cameo/i18nKipr.dart';
+import 'dart:html' as html;
+import 'dart:typed_data';
+import 'dart:async';
+import 'dart:convert';
+import 'package:http_parser/http_parser.dart';
+import 'package:http/http.dart' as http;
 
 class EditProductScreen extends StatefulWidget {
   static const routeName = '/edit-product';
@@ -18,6 +23,11 @@ class _EditProductScreenState extends State<EditProductScreen> {
   final _imageUrlController = TextEditingController();
   final _imageUrlFocusNode = FocusNode();
   final _form = GlobalKey<FormState>();
+  List<int> _selectedFile;
+  Uint8List _bytesData;
+
+  GlobalKey<FormState> _formKey = new GlobalKey<FormState>();
+
   var _editedProduct = Product(
     id: null,
     title: '',
@@ -47,8 +57,7 @@ class _EditProductScreenState extends State<EditProductScreen> {
     if (_isInit) {
       final productId = ModalRoute.of(context).settings.arguments as String;
       if (productId != null) {
-        _editedProduct =
-            Provider.of<Products>(context, listen: false).findById(productId);
+        _editedProduct = Provider.of<Products>(context, listen: false).findById(productId);
         _initValues = {
           'title': _editedProduct.title,
           'description': _editedProduct.description,
@@ -76,11 +85,8 @@ class _EditProductScreenState extends State<EditProductScreen> {
 
   void _updateImageUrl() {
     if (!_imageUrlFocusNode.hasFocus) {
-      if ((!_imageUrlController.text.startsWith('http') &&
-              !_imageUrlController.text.startsWith('https')) ||
-          (!_imageUrlController.text.endsWith('.png') &&
-              !_imageUrlController.text.endsWith('.jpg') &&
-              !_imageUrlController.text.endsWith('.jpeg'))) {
+      if ((!_imageUrlController.text.startsWith('http') && !_imageUrlController.text.startsWith('https')) ||
+          (!_imageUrlController.text.endsWith('.png') && !_imageUrlController.text.endsWith('.jpg') && !_imageUrlController.text.endsWith('.jpeg'))) {
         return;
       }
       setState(() {});
@@ -97,27 +103,25 @@ class _EditProductScreenState extends State<EditProductScreen> {
       _isLoading = true;
     });
     if (_editedProduct.id != null) {
-      await Provider.of<Products>(context, listen: false)
-          .updateProduct(_editedProduct.id, _editedProduct);
+      await Provider.of<Products>(context, listen: false).updateProduct(_editedProduct.id, _editedProduct);
     } else {
       try {
-        await Provider.of<Products>(context, listen: false)
-            .addProduct(_editedProduct);
+        await Provider.of<Products>(context, listen: false).addProduct(_editedProduct);
       } catch (error) {
         await showDialog(
           context: context,
           builder: (ctx) => AlertDialog(
-                title: Text(i('An error occurred!')),
-                content: Text(i('Something went wrong.')),
-                actions: <Widget>[
-                  FlatButton(
-                    child: Text('Okay'),
-                    onPressed: () {
-                      Navigator.of(ctx).pop();
-                    },
-                  )
-                ],
-              ),
+            title: Text(i('An error occurred!')),
+            content: Text(i('Something went wrong.')),
+            actions: <Widget>[
+              FlatButton(
+                child: Text('Okay'),
+                onPressed: () {
+                  Navigator.of(ctx).pop();
+                },
+              )
+            ],
+          ),
         );
       }
       // finally {
@@ -132,6 +136,44 @@ class _EditProductScreenState extends State<EditProductScreen> {
     });
     Navigator.of(context).pop();
     // Navigator.of(context).pop();
+  }
+
+  startWebFilePicker() async {
+    html.InputElement uploadInput = html.FileUploadInputElement();
+    uploadInput.multiple = true;
+    uploadInput.draggable = true;
+    uploadInput.click();
+
+    uploadInput.onChange.listen((e) {
+      final files = uploadInput.files;
+      final file = files[0];
+      final reader = new html.FileReader();
+
+      reader.onLoadEnd.listen((e) {
+        _handleResult(reader.result);
+      });
+      reader.readAsDataUrl(file);
+    });
+  }
+
+  void _handleResult(Object result) {
+    setState(() {
+      _bytesData = Base64Decoder().convert(result.toString().split(",").last);
+      _selectedFile = _bytesData;
+    });
+  }
+
+  Future<String> makeRequest() async {
+    var url = Uri.parse("http://192.168.23.10/upload_api/web/app_dev.php/api/save-file/");
+    var request = new http.MultipartRequest("POST", url);
+    request.files
+        .add(await http.MultipartFile.fromBytes('file', _selectedFile, contentType: new MediaType('application', 'octet-stream'), filename: "file_up"));
+
+    request.send().then((response) {
+      print("edit_product_screen.dart/makeRequest() send() 001");
+      print(response.statusCode);
+      if (response.statusCode == 200) print("edit_product_screen.dart/makeRequest() statusCode ${response.statusCode}");
+    });
   }
 
   @override
@@ -187,7 +229,6 @@ class _EditProductScreenState extends State<EditProductScreen> {
                       onFieldSubmitted: (_) {
                         FocusScope.of(context).requestFocus(_priceFocusNode);
                       },
-
                       onSaved: (value) {
                         _editedProduct = Product(
                             title: _editedProduct.title,
@@ -206,8 +247,7 @@ class _EditProductScreenState extends State<EditProductScreen> {
                       keyboardType: TextInputType.number,
                       focusNode: _priceFocusNode,
                       onFieldSubmitted: (_) {
-                        FocusScope.of(context)
-                            .requestFocus(_descriptionFocusNode);
+                        FocusScope.of(context).requestFocus(_descriptionFocusNode);
                       },
                       validator: (value) {
                         if (value.isEmpty) {
@@ -298,13 +338,10 @@ class _EditProductScreenState extends State<EditProductScreen> {
                               if (value.isEmpty) {
                                 return i('Please enter an image URL.');
                               }
-                              if (!value.startsWith('http') &&
-                                  !value.startsWith('https')) {
+                              if (!value.startsWith('http') && !value.startsWith('https')) {
                                 return i('Please enter a valid URL.');
                               }
-                              if (!value.endsWith('.png') &&
-                                  !value.endsWith('.jpg') &&
-                                  !value.endsWith('.jpeg')) {
+                              if (!value.endsWith('.png') && !value.endsWith('.jpg') && !value.endsWith('.jpeg')) {
                                 return i('Please enter a valid image URL.');
                               }
                               return null;
@@ -320,6 +357,46 @@ class _EditProductScreenState extends State<EditProductScreen> {
                                 isFavorite: _editedProduct.isFavorite,
                               );
                             },
+                          ),
+                        ),
+                      ],
+                    ),
+                    Row(
+                      crossAxisAlignment: CrossAxisAlignment.end,
+                      children: <Widget>[
+                        new Form(
+                          autovalidate: true,
+                          key: _formKey,
+                          child: Padding(
+                            padding: const EdgeInsets.only(top: 16.0, left: 28),
+                            child: new Container(
+                                width: 300,
+                                child: Column(children: <Widget>[
+                                  Column(crossAxisAlignment: CrossAxisAlignment.start, children: <Widget>[
+                                    MaterialButton(
+                                      color: Colors.purple,
+                                      elevation: 2,
+                                      highlightElevation: 2,
+                                      shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(8)),
+                                      textColor: Colors.white,
+                                      child: Text('Select a file'),
+                                      onPressed: () {
+                                        startWebFilePicker();
+                                      },
+                                    ),
+                                    MaterialButton(
+                                      color: Colors.purple,
+                                      elevation: 2,
+                                      highlightElevation: 2,
+                                      shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(8)),
+                                      textColor: Colors.white,
+                                      onPressed: () {
+                                        makeRequest();
+                                      },
+                                      child: Text('Send file to server'),
+                                    ),
+                                  ])
+                                ])),
                           ),
                         ),
                       ],
