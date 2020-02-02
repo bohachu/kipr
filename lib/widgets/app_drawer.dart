@@ -3,10 +3,12 @@ import 'package:provider/provider.dart';
 
 import '../screens/orders_screen.dart';
 import '../screens/user_products_screen.dart';
+import '../screens/sellerInfo_screen.dart';
 import '../providers/auth.dart';
 import '../helpers/custom_route.dart';
 import '../cameo/i18nKipr.dart';
 import '../cameo/uri.dart';
+
 
 class AppDrawer extends StatelessWidget {
   bool isBackend() {
@@ -58,6 +60,15 @@ class AppDrawer extends StatelessWidget {
                   },
                 )
               : Row(),
+          Divider(),
+          ListTile(
+            leading: Icon(Icons.home),
+            title: Text(i('SellerInfo')),
+            onTap: () {
+              Navigator.of(context)
+                  .pushReplacementNamed(SellerInfoScreen.routeName);
+            },
+          ),
           Divider(),
           ListTile(
             leading: Icon(Icons.exit_to_app),

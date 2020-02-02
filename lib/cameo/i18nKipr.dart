@@ -38,7 +38,7 @@ Map mapTw = {
   'Shop': '商店',
   'Orders': '訂單',
   'Manage Products': '管理商品',
-  'SellerInfoKipr': '賣家匯款資訊',
+  'SellerInfo': '賣家匯款資訊',
   'Logout': '登出',
   //cart_item.dart
   'Are you sure?': '確認刪除',
@@ -68,7 +68,10 @@ Map mapTw = {
   'Passwords do not match!': '兩次密碼不相符',
   'SIGNUP': '註冊',
   'LOGIN': '登入',
-  'INSTEAD': ''
+  'INSTEAD': '',
+  //sellerInfo_screen.dart
+  'sellerInfo': '賣家匯款資訊'
+
 };
 
 Map mapZhuyin = {
@@ -113,7 +116,7 @@ Map mapZhuyin = {
   'Shop': 'ㄕㄤ ㄉㄧㄢˋ',
   'Orders': 'ㄉㄧㄥˋ ㄉㄢ',
   'Manage Products': 'ㄍㄨㄢˇ ㄌㄧˇ ㄕㄤ ㄆㄧㄣˇ',
-  'SellerInfoKipr': 'ㄇㄞˋ ㄐㄧㄚ ㄏㄨㄟˋ ㄎㄨㄢˇ ㄗ ㄒㄩㄣˋ',
+  'SellerInfo': 'ㄇㄞˋ ㄐㄧㄚ ㄏㄨㄟˋ ㄎㄨㄢˇ ㄗ ㄒㄩㄣˋ',
   'Logout': 'ㄉㄥ ㄔㄨ',
   //cart_item.dart
   'Are you sure?': 'ㄑㄩㄝˋ ㄖㄣˋ ㄕㄢ ㄔㄨˊ',
@@ -144,7 +147,9 @@ Map mapZhuyin = {
   'Passwords do not match!': 'ㄌㄧㄤˇ ㄘˋ ㄇㄧˋ ㄇㄚˇ ㄅㄨˋ ㄒㄧㄤ ㄈㄨˊ',
   'SIGNUP': 'ㄓㄨˋ ㄘㄜˋ',
   'LOGIN': 'ㄉㄥ ㄖㄨˋ',
-  'INSTEAD': ''
+  'INSTEAD': '',
+  //sellerInfo_screen.dart
+  'sellerInfo': 'ㄇㄞˋ ㄐㄧㄚ ㄏㄨㄟˋ ㄎㄨㄢˇ ㄗ ㄒㄩㄣˋ'
 };
 
 String strCountry = 'Tw';
