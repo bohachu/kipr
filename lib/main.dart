@@ -15,18 +15,11 @@ import './screens/user_products_screen.dart';
 import './screens/edit_product_screen.dart';
 import './screens/auth_screen.dart';
 import './helpers/custom_route.dart';
-import './widgets/web_upload.dart';
 
 void main() => runApp(MyApp());
 
 class MyApp extends StatelessWidget {
-  static String strScreenStart=lstScreenStart[0];
-  static List lstScreenStart=['getScreenShop','getScreenUpload'];
   Widget getScreenMain(Auth auth) {
-    if(strScreenStart==lstScreenStart[0]) return getScreenShop(auth);
-    if(strScreenStart==lstScreenStart[1]) return getScreenUpload(auth);
-  }
-  Widget getScreenShop(Auth auth){
     return auth.isAuth
         ? ProductsOverviewScreen()
         : FutureBuilder(
@@ -34,9 +27,6 @@ class MyApp extends StatelessWidget {
       builder: (ctx, authResultSnapshot) =>
       authResultSnapshot.connectionState == ConnectionState.waiting ? SplashScreen() : AuthScreen(),
     );
-  }
-  Widget getScreenUpload(Auth auth){
-    return FileUploadApp();
   }
 
   @override

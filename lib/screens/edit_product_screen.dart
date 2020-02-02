@@ -57,7 +57,8 @@ class _EditProductScreenState extends State<EditProductScreen> {
     if (_isInit) {
       final productId = ModalRoute.of(context).settings.arguments as String;
       if (productId != null) {
-        _editedProduct = Provider.of<Products>(context, listen: false).findById(productId);
+        _editedProduct =
+            Provider.of<Products>(context, listen: false).findById(productId);
         _initValues = {
           'title': _editedProduct.title,
           'description': _editedProduct.description,
@@ -85,8 +86,11 @@ class _EditProductScreenState extends State<EditProductScreen> {
 
   void _updateImageUrl() {
     if (!_imageUrlFocusNode.hasFocus) {
-      if ((!_imageUrlController.text.startsWith('http') && !_imageUrlController.text.startsWith('https')) ||
-          (!_imageUrlController.text.endsWith('.png') && !_imageUrlController.text.endsWith('.jpg') && !_imageUrlController.text.endsWith('.jpeg'))) {
+      if ((!_imageUrlController.text.startsWith('http') &&
+              !_imageUrlController.text.startsWith('https')) ||
+          (!_imageUrlController.text.endsWith('.png') &&
+              !_imageUrlController.text.endsWith('.jpg') &&
+              !_imageUrlController.text.endsWith('.jpeg'))) {
         return;
       }
       setState(() {});
@@ -103,10 +107,12 @@ class _EditProductScreenState extends State<EditProductScreen> {
       _isLoading = true;
     });
     if (_editedProduct.id != null) {
-      await Provider.of<Products>(context, listen: false).updateProduct(_editedProduct.id, _editedProduct);
+      await Provider.of<Products>(context, listen: false)
+          .updateProduct(_editedProduct.id, _editedProduct);
     } else {
       try {
-        await Provider.of<Products>(context, listen: false).addProduct(_editedProduct);
+        await Provider.of<Products>(context, listen: false)
+            .addProduct(_editedProduct);
       } catch (error) {
         await showDialog(
           context: context,
@@ -164,15 +170,19 @@ class _EditProductScreenState extends State<EditProductScreen> {
   }
 
   Future<String> makeRequest() async {
-    var url = Uri.parse("http://192.168.23.10/upload_api/web/app_dev.php/api/save-file/");
+    var url = Uri.parse(
+        "http://192.168.23.10/upload_api/web/app_dev.php/api/save-file/");
     var request = new http.MultipartRequest("POST", url);
-    request.files
-        .add(await http.MultipartFile.fromBytes('file', _selectedFile, contentType: new MediaType('application', 'octet-stream'), filename: "file_up"));
+    request.files.add(await http.MultipartFile.fromBytes('file', _selectedFile,
+        contentType: new MediaType('application', 'octet-stream'),
+        filename: "file_up"));
 
     request.send().then((response) {
       print("edit_product_screen.dart/makeRequest() send() 001");
       print(response.statusCode);
-      if (response.statusCode == 200) print("edit_product_screen.dart/makeRequest() statusCode ${response.statusCode}");
+      if (response.statusCode == 200)
+        print(
+            "edit_product_screen.dart/makeRequest() statusCode ${response.statusCode}");
     });
   }
 
@@ -247,7 +257,8 @@ class _EditProductScreenState extends State<EditProductScreen> {
                       keyboardType: TextInputType.number,
                       focusNode: _priceFocusNode,
                       onFieldSubmitted: (_) {
-                        FocusScope.of(context).requestFocus(_descriptionFocusNode);
+                        FocusScope.of(context)
+                            .requestFocus(_descriptionFocusNode);
                       },
                       validator: (value) {
                         if (value.isEmpty) {
@@ -326,7 +337,8 @@ class _EditProductScreenState extends State<EditProductScreen> {
                         ),
                         Expanded(
                           child: TextFormField(
-                            decoration: InputDecoration(labelText: i('Image URL')),
+                            decoration:
+                                InputDecoration(labelText: i('Image URL')),
                             keyboardType: TextInputType.url,
                             textInputAction: TextInputAction.done,
                             controller: _imageUrlController,
@@ -357,46 +369,6 @@ class _EditProductScreenState extends State<EditProductScreen> {
                                 isFavorite: _editedProduct.isFavorite,
                               );
                             },
-                          ),
-                        ),
-                      ],
-                    ),
-                    Row(
-                      crossAxisAlignment: CrossAxisAlignment.end,
-                      children: <Widget>[
-                        new Form(
-                          autovalidate: true,
-                          key: _formKey,
-                          child: Padding(
-                            padding: const EdgeInsets.only(top: 16.0, left: 28),
-                            child: new Container(
-                                width: 300,
-                                child: Column(children: <Widget>[
-                                  Column(crossAxisAlignment: CrossAxisAlignment.start, children: <Widget>[
-                                    MaterialButton(
-                                      color: Colors.purple,
-                                      elevation: 2,
-                                      highlightElevation: 2,
-                                      shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(8)),
-                                      textColor: Colors.white,
-                                      child: Text('Select a file'),
-                                      onPressed: () {
-                                        startWebFilePicker();
-                                      },
-                                    ),
-                                    MaterialButton(
-                                      color: Colors.purple,
-                                      elevation: 2,
-                                      highlightElevation: 2,
-                                      shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(8)),
-                                      textColor: Colors.white,
-                                      onPressed: () {
-                                        makeRequest();
-                                      },
-                                      child: Text('Send file to server'),
-                                    ),
-                                  ])
-                                ])),
                           ),
                         ),
                       ],
