@@ -18,14 +18,23 @@ import './helpers/custom_route.dart';
 void main() => runApp(MyApp());
 
 class MyApp extends StatelessWidget {
-  Widget getHomeScreen(Auth auth) {
+  static List lstStartScreen=['getScreenShop','getScreenUpload'];
+  static String strStartScreen=lstStartScreen[0];
+  Widget getScreenShop(Auth auth){
     return auth.isAuth
         ? ProductsOverviewScreen()
         : FutureBuilder(
-            future: auth.tryAutoLogin(),
-            builder: (ctx, authResultSnapshot) =>
-                authResultSnapshot.connectionState == ConnectionState.waiting ? SplashScreen() : AuthScreen(),
-          );
+      future: auth.tryAutoLogin(),
+      builder: (ctx, authResultSnapshot) =>
+      authResultSnapshot.connectionState == ConnectionState.waiting ? SplashScreen() : AuthScreen(),
+    );
+  }
+  Widget getScreenUpload(Auth auth){
+    return ProductsOverviewScreen();
+  }
+  Widget getHomeScreen(Auth auth) {
+    if(strStartScreen==lstStartScreen[0]) return getScreenShop(auth);
+    if(strStartScreen==lstStartScreen[1]) return getScreenUpload(auth);
   }
 
   @override
@@ -78,5 +87,10 @@ class MyApp extends StatelessWidget {
         ),
       ),
     );
+  }
+  @override
+  void debugFillProperties(DiagnosticPropertiesBuilder properties) {
+    super.debugFillProperties(properties);
+    properties.add(DiagnosticsProperty<Function>('getScreenShop', getScreenShop));
   }
 }
