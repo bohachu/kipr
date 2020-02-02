@@ -1,0 +1,30 @@
+[
+  {
+    "id": "shop1",
+    "name": "神秘商店",
+    "logo": "https://cmkt-image-prd.freetls.fastly.net/0.1.0/ps/7287433/600/400/m2/fpnw/wm0/2-.jpg?1573613330&s=4d5414c42bc844c801484b44dd1c7dbe",
+    "video": "https://www.youtube.com/watch?v=0Vm-U9-orY4",
+    "slogan": "就是愛神秘"
+  },
+  {
+    "id": "shop2",
+    "name": "飛天商店",
+    "logo": "https://cmkt-image-prd.freetls.fastly.net/0.1.0/ps/7287433/600/400/m2/fpnw/wm0/2-.jpg?1573613330&s=4d5414c42bc844c801484b44dd1c7dbe",
+    "video": "https://www.youtube.com/watch?v=0Vm-U9-orY4",
+    "slogan": "永遠在雲端"
+  },
+  {
+    "id": "shop3",
+    "name": "遁地商店",
+    "logo": "https://cmkt-image-prd.freetls.fastly.net/0.1.0/ps/7287433/600/400/m2/fpnw/wm0/2-.jpg?1573613330&s=4d5414c42bc844c801484b44dd1c7dbe",
+    "video": "https://www.youtube.com/watch?v=0Vm-U9-orY4",
+    "slogan": "深入紅色地心"
+  },
+  {
+    "id": "shop4",
+    "name": "神龍商店",
+    "logo": "https://cmkt-image-prd.freetls.fastly.net/0.1.0/ps/7287433/600/400/m2/fpnw/wm0/2-.jpg?1573613330&s=4d5414c42bc844c801484b44dd1c7dbe",
+    "video": "https://www.youtube.com/watch?v=0Vm-U9-orY4",
+    "slogan": "神龍見首不見尾"
+  }
+]

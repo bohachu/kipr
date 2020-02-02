@@ -1,3 +1,47 @@
+== 20200202 23:23 ==
+已經改用 shop1.js 可以設定自己的商店名字以及Logo沒問題了
+localStorage.setItem('shopName', '飛龍商店');
+localStorage.setItem('shopLogo', 'https://teatimefordesign.files.wordpress.com/2010/03/01.jpg');
+
+== 20200202 22:45 ==
+已經放棄採用 kiprAssets/kiprAssets.json 雖然規劃好了但是時間不夠實作
+所以現在可以錄製相關的影片給奇德使用了
+
+== 20200202 22:32 ==
+kiprAssets/kiprAssets.json
+
+[
+  {
+    "id": "shop1",
+    "name": "神秘商店",
+    "logo": "https://cmkt-image-prd.freetls.fastly.net/0.1.0/ps/7287433/600/400/m2/fpnw/wm0/2-.jpg?1573613330&s=4d5414c42bc844c801484b44dd1c7dbe",
+    "video": "https://www.youtube.com/watch?v=0Vm-U9-orY4",
+    "slogan": "就是愛神秘"
+  },
+  {
+    "id": "shop2",
+    "name": "飛天商店",
+    "logo": "https://cmkt-image-prd.freetls.fastly.net/0.1.0/ps/7287433/600/400/m2/fpnw/wm0/2-.jpg?1573613330&s=4d5414c42bc844c801484b44dd1c7dbe",
+    "video": "https://www.youtube.com/watch?v=0Vm-U9-orY4",
+    "slogan": "永遠在雲端"
+  },
+  {
+    "id": "shop3",
+    "name": "遁地商店",
+    "logo": "https://cmkt-image-prd.freetls.fastly.net/0.1.0/ps/7287433/600/400/m2/fpnw/wm0/2-.jpg?1573613330&s=4d5414c42bc844c801484b44dd1c7dbe",
+    "video": "https://www.youtube.com/watch?v=0Vm-U9-orY4",
+    "slogan": "深入紅色地心"
+  },
+  {
+    "id": "shop4",
+    "name": "神龍商店",
+    "logo": "https://cmkt-image-prd.freetls.fastly.net/0.1.0/ps/7287433/600/400/m2/fpnw/wm0/2-.jpg?1573613330&s=4d5414c42bc844c801484b44dd1c7dbe",
+    "video": "https://www.youtube.com/watch?v=0Vm-U9-orY4",
+    "slogan": "神龍見首不見尾"
+  }
+]
+
+
 == 20200202 22:10 已經可以顯示作者
           title: Text(
             '${product.title} (作者:${product.creator})',
